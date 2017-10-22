@@ -20,7 +20,9 @@ def get_top_3_articles():
                 group by title
                 order by views desc
                 limit 3;"""
-    return execute_query(query1)
+    results = execute_query(query1)
+    for result in results:
+        print("%s - %s views" % (result[0], result[1]))
 
 def get_top_authors():
     """Find the most popular article authors."""
@@ -54,7 +56,7 @@ def get_high_error_days():
 # The main program that performs the analyses when this file is run
 if __name__ == '__main__':
     print("1. What are the most popular three articles of all time?")
-    print(get_top_3_articles())
+    get_top_3_articles()
     print("2. Who are the most popular article authors of all time?")
     print(get_top_authors())
     print("3. On which days did more than 1%% of requests lead to errors?")
