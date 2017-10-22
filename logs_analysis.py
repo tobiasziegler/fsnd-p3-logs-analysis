@@ -38,16 +38,17 @@ def get_top_authors():
 
 def get_high_error_days():
     """Find the days on which more than 1%% of requests led to errors."""
-    query3 = """select date, error_rate from
+    query3 = """select to_char(date, 'Mon dd, yyyy'),
+                error_rate from
                     (select a.date, errors, requests,
-                    round(100.0 * errors / requests, 2) as error_rate
+                    round(100.0 * errors / requests, 1) as error_rate
                     from
-                        (select date_trunc('day', time) as date,
+                        (select date(time) as date,
                         count(*) as errors
                         from log
                         where status not like '%200%'
                         group by date) as a,
-                        (select date_trunc('day', time) as date,
+                        (select date(time) as date,
                         count(*) as requests
                         from log
                         group by date) as b
