@@ -12,8 +12,19 @@ def execute_query(query):
     db.close()
     return results
 
+def get_top_3_articles():
+    """Find the most popular three articles of all time."""
+    query1 = """select title, count(*) as views
+                from articles, log
+                where log.path like '%' || articles.slug
+                group by title
+                order by views desc
+                limit 3;"""
+    return execute_query(query1)
+
 # The main program that performs the analyses when this file is run
 if __name__ == '__main__':
     print("1. What are the most popular three articles of all time?")
+    print(get_top_3_articles())
     print("2. Who are the most popular article authors of all time?")
     print("3. On which days did more than 1%% of requests lead to errors?")
