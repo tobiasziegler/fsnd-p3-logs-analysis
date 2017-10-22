@@ -2,6 +2,7 @@
 
 import psycopg2
 
+
 def execute_query(query):
     """Connect to the database, execute the specified query and return the
     results."""
@@ -11,6 +12,7 @@ def execute_query(query):
     results = c.fetchall()
     db.close()
     return results
+
 
 def get_top_3_articles():
     """Find the most popular three articles of all time."""
@@ -24,6 +26,7 @@ def get_top_3_articles():
     for result in results:
         print("\"%s\" — %s views" % (result[0], result[1]))
 
+
 def get_top_authors():
     """Find the most popular article authors."""
     query2 = """select name, count(*) as views
@@ -35,6 +38,7 @@ def get_top_authors():
     results = execute_query(query2)
     for result in results:
         print("%s — %s views" % (result[0], result[1]))
+
 
 def get_high_error_days():
     """Find the days on which more than 1%% of requests led to errors."""
@@ -57,6 +61,7 @@ def get_high_error_days():
     results = execute_query(query3)
     for result in results:
         print("%s — %s%% errors" % (result[0], result[1]))
+
 
 # The main program that performs the analyses when this file is run
 if __name__ == '__main__':
