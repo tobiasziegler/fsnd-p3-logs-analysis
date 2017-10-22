@@ -32,7 +32,9 @@ def get_top_authors():
                 and log.path like '%' || articles.slug
                 group by name
                 order by views desc;"""
-    return execute_query(query2)
+    results = execute_query(query2)
+    for result in results:
+        print("%s - %s views" % (result[0], result[1]))
 
 def get_high_error_days():
     """Find the days on which more than 1%% of requests led to errors."""
@@ -58,6 +60,6 @@ if __name__ == '__main__':
     print("1. What are the most popular three articles of all time?")
     get_top_3_articles()
     print("2. Who are the most popular article authors of all time?")
-    print(get_top_authors())
+    get_top_authors()
     print("3. On which days did more than 1%% of requests lead to errors?")
     print(get_high_error_days())
