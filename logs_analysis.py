@@ -24,7 +24,7 @@ def get_top_3_articles():
                 limit 3;"""
     results = execute_query(query1)
     for result in results:
-        print("\"%s\" — %s views" % (result[0], result[1]))
+        print("- \"%s\" — %s views" % (result[0], result[1]))
 
 
 def get_top_authors():
@@ -37,7 +37,7 @@ def get_top_authors():
                 order by views desc;"""
     results = execute_query(query2)
     for result in results:
-        print("%s — %s views" % (result[0], result[1]))
+        print("- %s — %s views" % (result[0], result[1]))
 
 
 def get_high_error_days():
@@ -60,7 +60,7 @@ def get_high_error_days():
                 where error_rate >= 1.00;"""
     results = execute_query(query3)
     for result in results:
-        print("%s — %s%% errors" % (result[0], result[1]))
+        print("- %s — %s%% errors" % (result[0], result[1]))
 
 
 # The main program that performs the analyses when this file is run
