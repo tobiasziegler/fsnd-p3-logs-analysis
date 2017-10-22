@@ -53,7 +53,9 @@ def get_high_error_days():
                         group by date) as b
                     where a.date = b.date) as error_rates
                 where error_rate >= 1.00;"""
-    return execute_query(query3)
+    results = execute_query(query3)
+    for result in results:
+        print("%s - %s%% errors" % (result[0], result[1]))
 
 # The main program that performs the analyses when this file is run
 if __name__ == '__main__':
@@ -62,4 +64,4 @@ if __name__ == '__main__':
     print("2. Who are the most popular article authors of all time?")
     get_top_authors()
     print("3. On which days did more than 1%% of requests lead to errors?")
-    print(get_high_error_days())
+    get_high_error_days()
