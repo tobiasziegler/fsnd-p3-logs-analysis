@@ -22,7 +22,7 @@ def get_top_3_articles():
                 limit 3;"""
     results = execute_query(query1)
     for result in results:
-        print("%s - %s views" % (result[0], result[1]))
+        print("\"%s\" — %s views" % (result[0], result[1]))
 
 def get_top_authors():
     """Find the most popular article authors."""
@@ -34,7 +34,7 @@ def get_top_authors():
                 order by views desc;"""
     results = execute_query(query2)
     for result in results:
-        print("%s - %s views" % (result[0], result[1]))
+        print("%s — %s views" % (result[0], result[1]))
 
 def get_high_error_days():
     """Find the days on which more than 1%% of requests led to errors."""
@@ -56,13 +56,13 @@ def get_high_error_days():
                 where error_rate >= 1.00;"""
     results = execute_query(query3)
     for result in results:
-        print("%s - %s%% errors" % (result[0], result[1]))
+        print("%s — %s%% errors" % (result[0], result[1]))
 
 # The main program that performs the analyses when this file is run
 if __name__ == '__main__':
     print("1. What are the most popular three articles of all time?")
     get_top_3_articles()
-    print("2. Who are the most popular article authors of all time?")
+    print("\n2. Who are the most popular article authors of all time?")
     get_top_authors()
-    print("3. On which days did more than 1%% of requests lead to errors?")
+    print("\n3. On which days did more than 1% of requests lead to errors?")
     get_high_error_days()
