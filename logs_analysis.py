@@ -32,6 +32,25 @@ def get_top_authors():
                 order by views desc;"""
     return execute_query(query2)
 
+def get_high_error_days():
+    """Find the days on which more than 1%% of requests led to errors."""
+    query3 = """select date, error_rate from
+                    (select a.date, errors, requests,
+                    round(100.0 * errors / requests, 2) as error_rate
+                    from
+                        (select date_trunc('day', time) as date,
+                        count(*) as errors
+                        from log
+                        where status not like '%200%'
+                        group by date) as a,
+                        (select date_trunc('day', time) as date,
+                        count(*) as requests
+                        from log
+                        group by date) as b
+                    where a.date = b.date) as error_rates
+                where error_rate >= 1.00;"""
+    return execute_query(query3)
+
 # The main program that performs the analyses when this file is run
 if __name__ == '__main__':
     print("1. What are the most popular three articles of all time?")
@@ -39,3 +58,4 @@ if __name__ == '__main__':
     print("2. Who are the most popular article authors of all time?")
     print(get_top_authors())
     print("3. On which days did more than 1%% of requests lead to errors?")
+    print(get_high_error_days())
